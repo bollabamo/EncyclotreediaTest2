@@ -2,24 +2,27 @@ package com.example.encyclotreediatest2;
 
 public class Data {
 	int _id;
-	String _name;
-	String _latin;
-	String _description;
+	String _title;
+	String _trail;
+	String _quickfacts;
+	String _extratext;
 	
 	public Data(){
 	}
 	
-	public Data(int id, String name, String latin, String description){
+	public Data(int id, String title, String trail, String quickfacts, String extratext){
 		this._id = id;
-		this._name = name;
-		this._latin = latin;
-		this._description = description;
+		this._title = title;
+		this._trail = trail;
+		this._quickfacts = quickfacts;
+		this._extratext = extratext;
 	}
 	
-	public Data(String name, String latin, String description){
-		this._name = name;
-		this._latin = latin;
-		this._description = description;
+	public Data(String title, String trail, String quickfacts, String extratext){
+		this._title = title;
+		this._trail = trail;
+		this._quickfacts = quickfacts;
+		this._extratext = extratext;
 	}
 	
 	public int getId(){
@@ -30,32 +33,43 @@ public class Data {
 		this._id = id;
 	}
 	
-	public String getName(){
-		return this._name;
+	public String getTitle(){
+		return this._title;
 	}
 	
-	public void setName(String name){
-		this._name = name;
+	public void setTitle(String title){
+		this._title = title;
 	}
 	
-	public String getLatin(){
-		return this._latin;
+	public String getTrail(){
+		return this._trail;
 	}
 	
-	public void setLatin(String latin){
-		this._latin = latin;
+	public void setTrail(String trail){
+		this._trail = trail;
 	}
 	
-	public String getDescription(){
-		return this._description;
+	public String getQuickFacts(){
+		return this._quickfacts;
 	}
 	
-	public void setDescription(String description){
-		this._description = description;
+	public void setQuickFacts(String quickfacts){
+		this._quickfacts = quickfacts;
 	}
+	
+	public String getExtraText(){
+		return this._extratext;
+	}
+	
+	public void setExtraText(String extratext){
+		this._extratext = extratext;
+	}
+	
 	public String __toString(){
-		return this._name;
+		return this._title;
 	}
+
+
 }
 
 

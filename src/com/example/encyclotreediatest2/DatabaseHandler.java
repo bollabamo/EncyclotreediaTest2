@@ -21,10 +21,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 
 	    // Datas Table Columns names
 	private static final String KEY_ID = "id";
-	private static final String KEY_NAME = "name";
-	private static final String KEY_LATIN = "latin";
-	private static final String KEY_DESCRIPTION = "description";
-	
+	private static final String KEY_TITLE = "title";
+	private static final String KEY_TRAIL = "trail";
+	private static final String KEY_QUICKFACTS = "quickfacts";
+	private static final String KEY_EXTRATEXT = "extratext";
 	
 	
 	public DatabaseHandler(Context context) {
@@ -33,10 +33,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_DATAS_TABLE = "CREATE TABLE " + TABLE_DATA + "("
-	                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-	                + KEY_LATIN + " TEXT,"
-	                + KEY_DESCRIPTION + " TEXT" + ")";
+		String CREATE_DATAS_TABLE = 
+					"CREATE TABLE " + TABLE_DATA + "("
+	                + KEY_ID + " INTEGER PRIMARY KEY," 
+	                + KEY_TRAIL + " TEXT,"
+	                + KEY_TITLE + " TEXT,"
+	                + KEY_QUICKFACTS + " TEXT,"
+	                + KEY_EXTRATEXT + " TEXT" + ")";
 	        db.execSQL(CREATE_DATAS_TABLE);
 	}
 
@@ -51,9 +54,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	    SQLiteDatabase db = this.getWritableDatabase();
 	    
 	    ContentValues values = new ContentValues();
-	    values.put(KEY_NAME, data.getName());
-	    values.put(KEY_LATIN, data.getLatin());
-	    values.put(KEY_DESCRIPTION, data.getDescription()); 
+	    values.put(KEY_TITLE, data.getTitle());
+	    values.put(KEY_TRAIL, data.getTrail());
+	    values.put(KEY_QUICKFACTS, data.getQuickFacts());
+	    values.put(KEY_EXTRATEXT, data.getExtraText());
 	 
 	    // Inserting Row
 	    db.insert(TABLE_DATA, null, values);
@@ -64,25 +68,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public Data getData(int id) {
 	    SQLiteDatabase db = this.getReadableDatabase();
 	    Cursor cursor = db.query(TABLE_DATA, new String[] { KEY_ID,
-	            KEY_NAME, KEY_LATIN, KEY_DESCRIPTION }, KEY_ID + "=?",
+	            KEY_TITLE, KEY_TRAIL, KEY_QUICKFACTS, KEY_EXTRATEXT }, KEY_ID + "=?",
 	            new String[] { String.valueOf(id) }, null, null, null, null);
 	    if (cursor != null && cursor.moveToFirst()){
 		    Data data = new Data(Integer.parseInt(cursor.getString(0)),
-		            cursor.getString(1), cursor.getString(2), cursor.getString(3));
+		            cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
 		    return data;
 	    }
 		return null;
 	}
 	
-	public Data getDataByName(String name) {
+	public Data getDataByTitle(String title) {
 	    SQLiteDatabase db = this.getReadableDatabase();
 	    
 	    Cursor cursor = db.query(TABLE_DATA, new String[] { KEY_ID,
-	            KEY_NAME, KEY_LATIN, KEY_DESCRIPTION }, KEY_NAME + "=?",
-	            new String[] { name }, null, null, null, null);
+	            KEY_TITLE, KEY_TRAIL, KEY_QUICKFACTS, KEY_EXTRATEXT }, KEY_TITLE + "=?",
+	            new String[] { title }, null, null, null, null);
 	    if (cursor != null && cursor.moveToFirst()){
 		    Data data = new Data(Integer.parseInt(cursor.getString(0)),
-		            cursor.getString(1), cursor.getString(2), cursor.getString(3));
+		            cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
 		    return data;
 	    }
 		return null;
@@ -99,9 +103,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	        do {
 	            Data data = new Data();
 	            data.setId(Integer.parseInt(cursor.getString(0)));
-	            data.setName(cursor.getString(1));
-	            data.setLatin(cursor.getString(2));
-	            data.setDescription(cursor.getString(3));
+	            data.setTitle(cursor.getString(1));
+	            data.setTrail(cursor.getString(2));
+	            data.setQuickFacts(cursor.getString(3));
+	            data.setExtraText(cursor.getString(4));
 	            dataList.add(data);
 	        } while (cursor.moveToNext());
 	    }
@@ -121,9 +126,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	    SQLiteDatabase db = this.getWritableDatabase();
 	    
 	    ContentValues values = new ContentValues();
-	    values.put(KEY_NAME, data.getName());
-	    values.put(KEY_LATIN, data.getLatin());
-	    values.put(KEY_DESCRIPTION, data.getDescription());
+	    values.put(KEY_TITLE, data.getTitle());
+	    values.put(KEY_TRAIL, data.getTrail());
+	    values.put(KEY_QUICKFACTS, data.getQuickFacts());
+	    values.put(KEY_EXTRATEXT, data.getExtraText());
 	 
 	    // updating row
 	    return db.update(TABLE_DATA, values, KEY_ID + " = ?",

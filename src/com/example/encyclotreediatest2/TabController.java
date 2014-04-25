@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -121,12 +122,14 @@ public class TabController extends FragmentActivity implements
 //			Fragment frag = mSectionsPagerAdapter.getItem(2);
 //			mSectionsPagerAdapter.notifyDataSetChanged();
 //			Log.d(frag.getView().toString(), "testing");
-			TextView dataName = (TextView) findViewById(R.id.dataName);
-			TextView dataLatin = (TextView) findViewById(R.id.dataLatin);
-			TextView dataDescrip = (TextView) findViewById(R.id.dataDescrip);
-			dataName.setText(ShowData.getName());
-			dataLatin.setText(ShowData.getLatin());
-			dataDescrip.setText(ShowData.getDescription());
+			TextView dataTitle = (TextView) findViewById(R.id.dataTitle);
+			TextView dataTrail = (TextView) findViewById(R.id.dataTrail);
+			TextView dataQuick = (TextView) findViewById(R.id.dataQuick);
+			TextView dataExtra = (TextView) findViewById(R.id.dataExtra);
+			dataTitle.setText(Html.fromHtml(ShowData.getTitle()));
+			dataTrail.setText(Html.fromHtml(ShowData.getTrail()));
+			dataQuick.setText(Html.fromHtml(ShowData.getQuickFacts()));
+			dataExtra.setText(Html.fromHtml(ShowData.getExtraText()));
 		}
 	}
 
@@ -169,7 +172,7 @@ public class TabController extends FragmentActivity implements
 //				this.notifyDataSetChanged();
 				ShowFragment show = new ShowFragment();
 				Bundle bundle = new Bundle();
-				bundle.putString("name", ShowData.getName());
+				bundle.putString("title", ShowData.getTitle());
 //				Log.d(ShowData.getName(),ShowData.getName());
 				show.setArguments(bundle);
 				return show;
@@ -252,7 +255,7 @@ public class TabController extends FragmentActivity implements
 	            // Type of the scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT_TYPE)
 	            Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
 	            DatabaseHandler db = new DatabaseHandler(this);
-	            ShowData = db.getDataByName(data.getStringExtra(ZBarConstants.SCAN_RESULT));
+	            ShowData = db.getDataByTitle(data.getStringExtra(ZBarConstants.SCAN_RESULT));
 	            getActionBar().setSelectedNavigationItem(2);
 	            Toast.makeText(this, "Scan Result Type = " + data.getIntExtra(ZBarConstants.SCAN_RESULT_TYPE, 0), Toast.LENGTH_SHORT).show();
 	            // The value of type indicates one of the symbols listed in Advanced Options below.

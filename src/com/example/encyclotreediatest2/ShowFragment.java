@@ -4,6 +4,7 @@ import com.example.encyclotreediatest2.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +17,20 @@ public class ShowFragment extends Fragment {
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final DatabaseHandler db = new DatabaseHandler(getActivity());
-		String name = this.getArguments().getString("name");
-		Log.d(name, name);
+		String title = this.getArguments().getString("title");
 		View showView = inflater.inflate(
 				R.layout.fragment_show, container, false);
-		Data data = db.getDataByName(name);
-		if(data != null){	
-			TextView data_name = (TextView) showView.findViewById(R.id.dataName);
-			TextView data_latin = (TextView) showView.findViewById(R.id.dataLatin);
-			TextView data_descrip = (TextView) showView.findViewById(R.id.dataDescrip);
+		Data data = db.getDataByTitle(title);
+		if(data != null){
+			TextView data_title = (TextView) showView.findViewById(R.id.dataTitle);
+			TextView data_trail = (TextView) showView.findViewById(R.id.dataTrail);
+			TextView data_quickfacts = (TextView) showView.findViewById(R.id.dataQuick);
+			TextView data_extratext = (TextView) showView.findViewById(R.id.dataExtra);
 
-			data_name.setText(data.getName());
-			data_latin.setText(data.getLatin());
-			data_descrip.setText(data.getDescription());
+			data_title.setText(Html.fromHtml(data.getTitle()));
+			data_trail.setText(Html.fromHtml(data.getTrail()));
+			data_quickfacts.setText(Html.fromHtml(data.getQuickFacts()));
+			data_extratext.setText(Html.fromHtml(data.getExtraText()));
 		}
 			return showView;
 	}
