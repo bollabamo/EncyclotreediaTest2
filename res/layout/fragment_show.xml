@@ -2,7 +2,7 @@
 <ScrollView 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="wrap_content">
 <LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -15,8 +15,8 @@
                         android:layout_marginBottom="10dp"
                         android:ems="10"
                         android:inputType="none"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/dataTrail"
@@ -25,8 +25,25 @@
                         android:layout_marginBottom="10dp"
                         android:ems="10"
                         android:inputType="none"
-                        android:textSize="16sp"
-                        android:textStyle="italic"/>
+                        android:textSize="16sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:id="@+id/showImage"
+                            android:layout_width="240dp"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true" />
+
+                        <ImageView
+                            android:id="@+id/mapImage"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/dataQuick"
@@ -38,8 +55,7 @@
                     <TextView
                         android:id="@+id/dataExtra"
                         android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="0.35"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:textSize="16sp" />
 

@@ -9,14 +9,14 @@ package com.dm.zbar.android.scanner;
 public final class R {
 	public static final class drawable {
 		public static final int ic_launcher = 0x7f020000;
-		public static final int rectangle = 0x7f020001;
+		public static final int rectangle = 0x7f020003;
 	}
 	public static final class id {
 		public static final int camera_preview = 0x7f080001;
-		public static final int listview_background_shape = 0x7f080010;
-		public static final int myRectangleView = 0x7f08000f;
+		public static final int listview_background_shape = 0x7f080012;
+		public static final int myRectangleView = 0x7f080011;
 		public static final int overlay_layout = 0x7f080002;
-		public static final int view1 = 0x7f08000e;
+		public static final int view1 = 0x7f080010;
 	}
 	public static final class layout {
 		public static final int camera_layout = 0x7f030001;

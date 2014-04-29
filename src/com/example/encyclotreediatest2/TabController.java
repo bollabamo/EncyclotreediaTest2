@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,9 +120,6 @@ public class TabController extends FragmentActivity implements
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
 		if(tab.getText() == "Show"){
-//			Fragment frag = mSectionsPagerAdapter.getItem(2);
-//			mSectionsPagerAdapter.notifyDataSetChanged();
-//			Log.d(frag.getView().toString(), "testing");
 			TextView dataTitle = (TextView) findViewById(R.id.dataTitle);
 			TextView dataTrail = (TextView) findViewById(R.id.dataTrail);
 			TextView dataQuick = (TextView) findViewById(R.id.dataQuick);
@@ -129,7 +127,21 @@ public class TabController extends FragmentActivity implements
 			dataTitle.setText(Html.fromHtml(ShowData.getTitle()));
 			dataTrail.setText(Html.fromHtml(ShowData.getTrail()));
 			dataQuick.setText(Html.fromHtml(ShowData.getQuickFacts()));
-			dataExtra.setText(Html.fromHtml(ShowData.getExtraText()));
+			if(ShowData.getExtraText() != null){
+				dataExtra.setText(Html.fromHtml(ShowData.getExtraText()));
+			}
+			else{
+				dataExtra.setText(null);
+			}
+			ImageView show_image = (ImageView) findViewById(R.id.showImage);	
+			int show_id = getResources().getIdentifier(ShowData.getTitle().toLowerCase(Locale.ENGLISH).replaceAll("[\\s\\:\\#]",""), "drawable", getPackageName());	
+			show_image.setImageResource(show_id);
+			ImageView map_image = (ImageView) findViewById(R.id.mapImage);
+			map_image.setImageResource(R.drawable.intensivemap);
+//			dataTitle.setText(ShowData.getTitle());
+//			dataTrail.setText(ShowData.getTrail());
+//			dataQuick.setText(ShowData.getQuickFacts());
+//			dataExtra.setText(ShowData.getExtraText());
 		}
 	}
 

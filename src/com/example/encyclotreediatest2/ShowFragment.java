@@ -2,6 +2,8 @@ package com.example.encyclotreediatest2;
 
 import com.example.encyclotreediatest2.R;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ShowFragment extends Fragment {
@@ -22,15 +25,24 @@ public class ShowFragment extends Fragment {
 				R.layout.fragment_show, container, false);
 		Data data = db.getDataByTitle(title);
 		if(data != null){
-			TextView data_title = (TextView) showView.findViewById(R.id.dataTitle);
-			TextView data_trail = (TextView) showView.findViewById(R.id.dataTrail);
-			TextView data_quickfacts = (TextView) showView.findViewById(R.id.dataQuick);
-			TextView data_extratext = (TextView) showView.findViewById(R.id.dataExtra);
-
-			data_title.setText(Html.fromHtml(data.getTitle()));
-			data_trail.setText(Html.fromHtml(data.getTrail()));
-			data_quickfacts.setText(Html.fromHtml(data.getQuickFacts()));
-			data_extratext.setText(Html.fromHtml(data.getExtraText()));
+//			TextView data_title = (TextView) showView.findViewById(R.id.dataTitle);
+//			TextView data_trail = (TextView) showView.findViewById(R.id.dataTrail);
+//			TextView data_quickfacts = (TextView) showView.findViewById(R.id.dataQuick);
+//			TextView data_extratext = (TextView) showView.findViewById(R.id.dataExtra);
+//
+//			data_title.setText(Html.fromHtml(data.getTitle()));
+//			data_trail.setText(Html.fromHtml(data.getTrail()));
+//			data_quickfacts.setText(Html.fromHtml(data.getQuickFacts()));
+//			data_extratext.setText(Html.fromHtml(data.getExtraText()));
+//			
+////			data_title.setText(data.getTitle());
+////			data_trail.setText(data.getTrail());
+////			data_quickfacts.setText(data.getQuickFacts());
+////			data_extratext.setText(data.getExtraText());
+//			
+//			Resources res = getResources();
+//			ImageView show_image = (ImageView) showView.findViewById(R.id.showImage);
+//			show_image.setImageResource(R.drawable.welcome);
 		}
 			return showView;
 	}
