@@ -1,34 +1,31 @@
 package com.example.encyclotreediatest2;
 
-import java.util.Locale;
-
 import net.sourceforge.zbar.Symbol;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.NavUtils;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,7 +116,7 @@ public class TabController extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
-		if(tab.getText() == "Show"){
+		if(tab.getText() == "Info"){
 			TextView dataTitle = (TextView) findViewById(R.id.dataTitle);
 			TextView dataTrail = (TextView) findViewById(R.id.dataTrail);
 			TextView dataQuick = (TextView) findViewById(R.id.dataQuick);
@@ -133,15 +130,33 @@ public class TabController extends FragmentActivity implements
 			else{
 				dataExtra.setText(null);
 			}
-			ImageView show_image = (ImageView) findViewById(R.id.showImage);	
-			int show_id = getResources().getIdentifier(ShowData.getTitle().toLowerCase(Locale.ENGLISH).replaceAll("[\\s\\:\\#]",""), "drawable", getPackageName());	
+			ImageView show_image = (ImageView) findViewById(R.id.showImage);
+			show_image.setOnClickListener(new View.OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					
+				}});
+			int show_id = getResources().getIdentifier(ShowData.getImageNames().split(";")[0], "drawable", getPackageName());
 			show_image.setImageResource(show_id);
-			ImageView map_image = (ImageView) findViewById(R.id.mapImage);
-			map_image.setImageResource(R.drawable.intensivemap);
-//			dataTitle.setText(ShowData.getTitle());
-//			dataTrail.setText(ShowData.getTrail());
-//			dataQuick.setText(ShowData.getQuickFacts());
-//			dataExtra.setText(ShowData.getExtraText());
+			
+			ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+		
+			ImagePagerAdapter adapter = new ImagePagerAdapter();
+		    viewPager.setAdapter(adapter);
+		    CirclePageIndicator circleIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
+			circleIndicator.setViewPager(viewPager);
+			circleIndicator.setCentered(true);
+		    if(adapter.getCount() > 1){
+				circleIndicator.setFillColor(Color.BLACK);
+				circleIndicator.setStrokeColor(Color.BLACK);
+				circleIndicator.setStrokeWidth(2);
+		    }
+		    else{
+				circleIndicator.setFillColor(Color.WHITE);
+		    	circleIndicator.setStrokeWidth(0);
+		    }
 		}
 	}
 
@@ -156,6 +171,41 @@ public class TabController extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
+	
+    public class ImagePagerAdapter extends PagerAdapter{
+    	String[] images = ShowData.getImageNames().split(";");
+    	
+    	int[] imageValue = new int[images.length];
+    	
+    	@Override
+    	public int getCount() {
+    		return images.length;
+    	}
+
+    	@Override
+    	public boolean isViewFromObject(View view, Object object) {
+    	      return view == ((ImageView) object);
+    	}
+    	
+        public Object instantiateItem(ViewGroup container, int position) {
+        	imageValue[position] =  getResources().getIdentifier(images[position], "drawable", getPackageName());;
+            Context context = findViewById(R.id.showImage).getContext();
+            ImageView imageView = new ImageView(context);
+            int padding = 2;
+            imageView.setPadding(padding, padding, padding, padding);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setImageResource(imageValue[position]);
+            ((ViewPager) container).addView(imageView, 0);
+            return imageView;
+          }
+        
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            ((ViewPager) container).removeView((ImageView) object);
+          }
+
+    }
+	
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -206,7 +256,7 @@ public class TabController extends FragmentActivity implements
 			case 1:
 				return "Browse";
 			case 2:
-				return "Show";
+				return "Info";
 			}
 			return null;
 		}
@@ -263,6 +313,7 @@ public class TabController extends FragmentActivity implements
 	    }
 	    public void onActivityResult(int requestCode, int resultCode, Intent data)
 	    {    
+	    	if(data != null){
 	            // Scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT)
 	            // Type of the scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT_TYPE)
 	            Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
@@ -271,6 +322,7 @@ public class TabController extends FragmentActivity implements
 	            getActionBar().setSelectedNavigationItem(2);
 	            Toast.makeText(this, "Scan Result Type = " + data.getIntExtra(ZBarConstants.SCAN_RESULT_TYPE, 0), Toast.LENGTH_SHORT).show();
 	            // The value of type indicates one of the symbols listed in Advanced Options below.
+	    	}
 	    }
 
 }

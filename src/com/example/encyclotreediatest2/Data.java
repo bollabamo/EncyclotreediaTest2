@@ -6,23 +6,26 @@ public class Data {
 	String _trail;
 	String _quickfacts;
 	String _extratext;
+	String _imagenames;
 	
 	public Data(){
 	}
 	
-	public Data(int id, String title, String trail, String quickfacts, String extratext){
+	public Data(int id, String title, String trail, String quickfacts, String extratext, String imagenames){
 		this._id = id;
 		this._title = title;
 		this._trail = trail;
 		this._quickfacts = quickfacts;
 		this._extratext = extratext;
+		this._imagenames = imagenames;
 	}
 	
-	public Data(String title, String trail, String quickfacts, String extratext){
+	public Data(String title, String trail, String quickfacts, String extratext, String imagenames){
 		this._title = title;
 		this._trail = trail;
 		this._quickfacts = quickfacts;
 		this._extratext = extratext;
+		this._imagenames = imagenames;
 	}
 	
 	public int getId(){
@@ -63,6 +66,14 @@ public class Data {
 	
 	public void setExtraText(String extratext){
 		this._extratext = extratext;
+	}
+	
+	public void setImageNames(String imagenames){
+		this._imagenames = imagenames;
+	}
+	
+	public String getImageNames( ){
+		return this._imagenames;
 	}
 	
 	public String __toString(){

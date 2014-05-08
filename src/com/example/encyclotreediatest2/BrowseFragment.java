@@ -45,29 +45,11 @@ public class BrowseFragment extends ListFragment {
     			R.layout.fragment_browse, container, false);
     	final ListView listView = (ListView) view.findViewById((android.R.id.list));
     	
+    	
+    	//Inserts all info into database, will need to be moved to the update activity once it's created
         final DatabaseHandler db = new DatabaseHandler(getActivity());
         SQLiteDatabase database = db.getWritableDatabase();
         database.execSQL("delete from datas");
-//        db.addData(new Data(1,"Welcome to the Intensive Management Trail", 
-//        		
-//        		"Intensive Management Trail", 
-//        		
-//        		"Welcome to Intensive Management Trail, a hiker-only trail located within Oregon State University’s College Forests! This 1.2 mile trail was built to allow forest visitors an"+
-//        		"opportunity to observe some of the many forest practices that have been developed by OSU forest managers to improve forest health, provide sustainable harvests, and" +
-//        		"increase biodiversity. These QR codes accompany the interpretive signs that you will encounter along the trail." +
-//        		"You will pass through at least 13 different managed plots and encounter examples of pruning, thinning, different spacing options,"+
-//        		"and the sustainable practice of agroforestry, which combines agricultural practices and forestry.",
-//        		
-//        		"The forest stands you will encounter were planted in the 1960s and 1970s with seedlings of Douglas-fir " +
-//        		"(<em>Pseudotsuga menziesii </em>) from around the Pacific Northwest with the intent of watching how each different " +
-//        		"strain would grow in this area different forest practices on the growth and health of the stands. After 30 to 40 years of growth," +
-//        		" effects of some of those practices are now apparent. Look for numbered posts along the way that correlate to the following stops " +
-//        		"so you can learn about the different areas as you go."));
-//        db.addData(new Data(2,"Poison Oak", "Toxicodendron diversilobum", "Toxicodendron diversilobum, " +
-//        		"commonly named Pacific poison oak or western poison oak (syn. Rhus diversiloba), " +
-//        		"is a woody vine or shrub in the Anacardiaceae (sumac) family." +
-//        		" It is widely distributed in western North America," +
-//        		" inhabiting conifer and mixed broadleaf forests, woodlands, grasslands, and chaparral biomes.", null));
         InputStream is;
 		try {
 			is = getActivity().getAssets().open("QR Code Intensive Management Trail Content.csv");
@@ -78,13 +60,14 @@ public class BrowseFragment extends ListFragment {
                  String title = RowData[1].replaceAll("^\"|\"$", "");
                  String trail = RowData[0].replaceAll("^\"|\"$", "");
                  String quick = RowData[2].replaceAll("^\"|\"$", "");
-                 Log.d("Test", Integer.toString(RowData.length));
-                 if(RowData.length >=4 && RowData[3] != null){
-                	 String extra = RowData[3].replaceAll("^\"|\"$", "");
-                	 db.addData(new Data(title, trail, quick, extra));
+                 String extra = RowData[3].replaceAll("^\"|\"$", ""); 
+                 String images = RowData[4].replaceAll("^\"|\"$", "");
+                 if(RowData[3] != null){
+                	 
+                	 db.addData(new Data(title, trail, quick, extra, images));
                  }
                  else{
-                	 db.addData(new Data(title, trail, quick, null));
+                	 db.addData(new Data(title, trail, quick, null, images));
                  }
             }
             is.close();
